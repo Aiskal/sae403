@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <title>Portfolio MMI</title>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ asset('css/bulma.min.css?v=0.9.4') }}">
+	<link rel="stylesheet" type="text/css" media="screen" href="{{ asset('css/main.css') }}">
+
+  </head>
+
+    <body>
+    <header>
+        <figure class="avatar">
+            <a>
+                {% if app.user.photo %}
+                    <img src="{{ asset('images/jpg/photoCV.jpg') }}" alt="Votre avatar"/>
+                {% else %}
+                    <img src="{{ asset('images/jpg/default.jpg') }}" alt="Votre avatar"/>
+                {% endif %}
+            </a>
+        </figure>
+        <ul>
+          <li><a href="#" target="_self">Portfolio MMI</a></li>
+        </ul>
+        <button type="button" class="deconnexion" id="deconnexion_pc"><a href="{{ path('app_logout')}}"><p>Logout</p></a></button>
+        <button id="menu-ouvrir" class="button">
+            <img src="{{ asset('images/svg/btn-menu.svg') }}" alt="Ouvrir le menu" />
+        </button>
+        <section id="navigation">
+            <nav>
+                <figure class="avatar" id="avatar_fermer">
+                    <a>
+                        {% if app.user.photo %}
+                            <img src="{{ asset('images/jpg/photoCV.jpg') }}" alt="Votre avatar"/>
+                        {% else %}
+                            <img src="{{ asset('images/jpg/default.jpg') }}" alt="Votre avatar"/>
+                        {% endif %}
+                    </a>
+                </figure>
+                <h1>Portfolio MMI</h1>
+                <button id="menu-fermer" class="button">
+                    <img src="{{ asset('images/svg/btn-fermer.svg') }}" alt="Fermer le menu" />
+                </button>
+                <ul>
+                    <button type="button" class="deconnexion" id="deconnexion_pc"><a href="{{ path('app_logout')}}"><p>Logout</p></a></button>
+                </ul>
+            </nav>
+        </section>
+    </header>
+
+    <main >
+
+
+        {% if app.user %}
+        
+        {% if is_granted('ROLE_ADMIN') %}
+        <div class="attente">
+            <p>Vous voyez cette page en tant qu'admin !</p>
+            <a href="{{ path('admin') }}" class="btn btn-secondary">Retour à la page admin</a>
+        </div>
+        {% else %}
+             {% if not projets %}
+            <div class="attente">
+                <p>Vous n'avez pas encore de projet !<br> Remplissez votre portfolio en les ajoutant grâce au formulaire.</p>
+            </div>
+            {% endif %}
+        {% endif %}
+
+                {# {% if is_granted('ROLE_PROF') %}
+                    <p>Vous voyez cette page en tant que professeur !</p>
+                {% endif %}  #}
+
+          <section id="portfolio">
+
+          <div class="bienvenue">
+            
+                <h2>Bonjour {{ app.user.prenom }} {{ app.user.nom }}, et bienvenue sur votre portfolio.</h2><br/>
+                
+                {# <button class="btn_style"><span class="centre">Ajouter</span></button> #}
+            
+
+                <div class="ajoutForm">
+                    <h3>Pour ajouter un projet : </h3>
+
+                    {{ form_start(ajoutForm) }}
+                    {{ form_row(ajoutForm.nom) }}
+                    {{ form_row(ajoutForm.description) }}
+                    {{ form_row(ajoutForm.image) }}
+                    {{ form_row(ajoutForm.date) }}
+
+                        <h3>Ajouter un AC :</h3>
+                        {{ form_row(ajoutACForms.0) }}
+                        {{ form_row(ajoutACForms.1) }}
+                        {{ form_row(ajoutACForms.2) }}
+
+                        {# {{ form_start(ajoutACForms) }}
+                        {{ form_row(ajoutACForms.label) }}
+                        {{ form_row(ajoutACForms.note) }} 
+                        {{ form_end(ajoutACForms) }}     #}
+
+                        {# {% for form in ajoutACForms %}
+                            {{ form_widget(form.label) }}
+                            {# {{ form_widget(form.commentaire) }} #}
+                            {# {{ form_widget(form.note) }} #}
+                            {# {{ form_widget(form.label, {'attr': {'name': 'label_' ~ loop.index}}) }}
+                            {{ form_widget(form.note, {'attr': {'name': 'note_' ~ loop.index}}) }} #}
+                        {# {% endfor %} #}
+
+                    <button type="submit" class="btn">Valider</button>
+                    
+                    {{ form_end(ajoutForm) }}
+
+                </div>
+            </div>
+
+            {% if projets %}
+                {% for projet in projets %}
+                <article>
+                    <h3>Nom du projet : {{ projet.nom }}</h3>
+                    <p>Description : {{ projet.description }}</p>
+                    <div class="img-wrapper">
+                    <img src="{{ asset('./images/projets/'~projet.image) }}" >
+                    </div>
+                    {% if projet.date %}
+                    <p>{{ projet.date|date('d-m-Y') }}</p>
+                    {% endif %}
+                    {% if projet.commentaire %}
+                    <p>Commentaire des professeurs : {{ projet.commentaire }}</p>
+                    {% endif %}
+                        {# <form action="{{ path('delete_project', {'id': projet.id}) }}" method="DELETE" onsubmit="return confirm('Etes-vous sûr(e) de vouloir supprimer ce projet ?');">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ projet.id) }}">
+                            <button type="submit" class="btn_style"><span class="centre">Supprimer</span></button>
+                        </form> #}
+
+                        {# <form action="{{ path('delete_project', {'id': projet.id}) }}" method="POST" onsubmit="return confirm('Etes-vous sûr(e) de vouloir supprimer ce projet ?');">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ projet.id) }}">
+                            <button type="submit" class="btn_style"><span class="centre">Supprimer</span></button>
+                        </form> #}
+
+                </article>
+                {% endfor %}
+            {% endif %}
+        </section>
+        {% endif %}
+        
+
+       </main>
+        
+    <footer>
+      <figure>
+        <a href="https://www.iut-velizy-rambouillet.uvsq.fr" target="_blank"><img src="{{ asset('images/png/logo_mmi.png') }}" title="Logo MMI" alt="Logo MMI"></a>
+      </figure>
+      <li>
+        <ul><a href="{{ asset('pdf/mentions.pdf') }}" download>Télécharger les mentions légales</a></ul>
+        <ul><a href="#">Contact</a></ul>
+      </li>
+    </footer>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
+</body>

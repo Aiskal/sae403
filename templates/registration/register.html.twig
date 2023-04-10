@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <title>Portfolio MMI</title>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ asset('css/bulma.min.css?v=0.9.4') }}">
+	<link rel="stylesheet" type="text/css" media="screen" href="{{ asset('css/main.css') }}">
+
+  </head>
+
+<body>
+<main>
+    {% if app.user %}
+    <script>
+        window.location.href = '{{ path('app_logout') }}';
+    </script>
+    {% endif %}
+
+    
+    <div class="myform">
+
+        <h1 class="h3 mb-3 font-weight-normal">Inscrivez-vous</h1>
+    {{ form_start(registrationForm) }}
+            {{ form_row(registrationForm.prenom) }}
+            {{ form_row(registrationForm.nom) }}
+            {{ form_row(registrationForm.email) }}
+            {{ form_row(registrationForm.plainPassword) }}
+
+        <button class="btn btn-lg btn-primary" type="submit">
+            S'enregistrer
+        </button>
+
+        {{ form_end(registrationForm) }}
+
+        <div class="liens-form">
+            <a href="{{ path('index') }}">Retour</a> <a href="{{ path('app_login') }}">J'ai déjà un compte</a>
+        </div>
+    </form>
+</main>
+
+    <footer>
+      <figure>
+        <a href="https://www.iut-velizy-rambouillet.uvsq.fr" target="_blank"><img src="{{ asset('images/png/logo_mmi.png') }}" title="Logo MMI" alt="Logo MMI"></a>
+      </figure>
+      <li>
+        <ul><a href="{{ asset('pdf/mentions.pdf') }}" download>Télécharger les mentions légales</a></ul>
+        <ul><a href="#">Contact</a></ul>
+      </li>
+    </footer>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
+</body>

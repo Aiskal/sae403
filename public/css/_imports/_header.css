@@ -1,0 +1,274 @@
+/* 
+
+------------------------------------------------------------ Sélecteurs HTML
+
+*/
+
+body > header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: var(--mob-header-h);
+	overflow: hidden;
+
+	background-color: var(--noir);
+} /* body > header { */
+
+header h1 {
+	font-size: 1.125rem;
+    text-align: center;
+    text-transform: uppercase;
+    color: var(--blanc);
+}
+
+.avatar {
+	width: 10vw;
+	height: 10vw;
+	border-radius: 200%;
+	overflow: hidden;
+	margin: 0 0 0 3vw;
+	padding: 0;
+	
+} /* body > header figure { */
+
+nav {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100vw;
+	height: 100vh;
+	background-position: 1.25rem 0.3125rem;
+	background-color: var(--noir);
+
+	font-size: 1.125rem;
+	text-align: center;
+	text-transform: uppercase;
+	color: var(--blanc);
+} /* nav { */
+
+header a:link,
+header a:visited,
+header a:active,
+header {
+	display: block;
+	padding: 1rem;
+	opacity: 1;
+	color: var(--blanc);
+	transition: 0.25s linear opacity;
+} /* nav a:link, nav a:visited, nav a:active { */
+
+nav a:hover {
+	opacity: 0.625;
+}
+
+header p {
+	margin: 0 0 calc(var(--gouttiere) / 2) 0;
+}
+
+#proj {
+	display: none;
+}
+
+/* 
+
+------------------------------------------------------------ Classes
+
+*/
+
+.button {
+	margin: 0;
+	padding: 0;
+	width: var(--mob-header-h);
+	height: var(--mob-header-h);
+
+	background-color: transparent;
+	border: none;
+} /* .button */
+
+.button.is-focused,
+.button:focus {
+	border: none;
+}
+.button.is-focused:not(:active),
+.button:focus:not(:active) {
+	box-shadow: none;
+}
+
+header ul {
+	display: flex;
+}
+
+header li {
+	text-transform: uppercase;
+	font-size: 1.125rem;
+	color: var(--blanc);
+	margin: 0 1rem;
+}
+
+/* 
+
+------------------------------------------------------------ IDs
+
+*/
+
+#menu-fermer {
+	position: absolute;
+	top: 0;
+	right: 0;
+} /* #menu-fermer { */
+
+#navigation {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	z-index: 100;
+} /* #navigation { */
+
+#avatar_fermer {
+	position: absolute;
+	top: 0;
+	left: 0;
+	margin: 0.5rem 0 0 3vw;
+	padding: 0;
+}
+
+nav > h1 {
+	position: absolute;
+	top: 0;
+	left: 50vw;
+	translate: -51%;
+	margin-top: 4%;
+}
+
+/* 
+
+------------------------------------------------------------ BTN Déconnexion
+
+*/
+
+.deconnexion {
+	margin: 1rem 1rem 1rem 0;
+	height: 30vw;
+	width: 30vw;
+	border-radius: 50%;
+	background: var(--noir);
+	box-shadow:  20px 20px 40px #121110,
+           		-20px -20px 40px #211f1e;
+	border: none;
+	transition: 0.1s;
+}
+
+#btn_nav {
+	margin: 1rem 0 1rem 0;
+}
+	
+.deconnexion:active {
+	border-radius: 50%;
+	background: var(--noir);
+	box-shadow: 20px 20px 40px #121110,
+				-20px -20px 40px #211f1e,
+				inset 20px 20px 40px #121110,
+				inset -20px -20px 40px #211f1e;
+}
+
+.deconnexion p {
+	color: var(--blanc);
+	margin: 0;
+	padding: 0;
+}
+
+.deconnexion_pc {
+	display: none;
+}
+
+#deco_fermer {
+	margin: 1rem 0;
+}
+
+/* 
+
+------------------------------------------------------------ MQ
+
+*/
+
+@media screen and (min-width: 48rem) {
+	.avatar {
+		width: 6vw;
+		height: 6vw;
+	}
+}
+
+@media screen and (min-width: 64rem) {
+	body > header {
+		height: var(--desk-header-h);
+	}
+
+	body > header figure {
+		width: 12.25rem;
+		margin: 1rem 0 0 1rem;
+	}
+
+	body > header .wrapper {
+		position: relative;
+		width: 64rem;
+		margin: 0 auto;
+	}
+
+	#proj {
+		display: block;
+	}
+
+	nav {
+		display: none;
+		top: auto;
+		left: auto;
+		width: auto;
+		height: auto;
+
+		background-color: transparent;
+		background-image: none;
+
+		font-size: 0.875rem;
+		font-weight: bold;
+	}
+
+	#avatar_fermer {
+		display: none;
+	}
+
+	#navigation {
+		display: block;
+		position: absolute;
+		top: 50%;
+		right: 0;
+		left: auto;
+		height: 4.375rem;
+		width: 35rem;
+		transform: translateY(-50%);
+	}
+
+	#navigation ul {
+		display: flex;
+	}
+
+	#menu-fermer,
+	#menu-ouvrir {
+		display: none;
+	}
+
+	.deconnexion {
+		height: 10vw;
+		width: 10vw;
+	}
+
+	.deconnexion_pc {
+		display: block;
+	}
+} /* @media screen and (min-width: 64rem) { */

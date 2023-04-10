@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <title>Portfolio MMI</title>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ asset('css/bulma.min.css?v=0.9.4') }}">
+	<link rel="stylesheet" type="text/css" media="screen" href="{{ asset('css/main.css') }}">
+
+  </head>
+
+    <body>
+
+        <header>
+            <figure class="avatar">
+              <a>
+                  
+                  {% if app.user %}
+                    {% if app.user.photo %}
+                      <img src="{{ asset('images/jpg/photoCV.jpg') }}" alt="Votre avatar"/>
+                    {% else %}
+                      <img src="{{ asset('images/jpg/default.jpg') }}" alt="Votre avatar"/>
+                    {% endif %}
+                  {% else %}
+                    <img src="{{ asset('images/jpg/default.jpg') }}" alt="Votre avatar"/>
+                  {% endif %}
+              </a>
+            </figure>
+            <ul>
+                <li><a href="#" target="_self">Portfolio MMI</a></li>
+            </ul>
+
+                    {% if app.user %}
+                        <button type="button" class="deconnexion deconnexion_pc"><a href="{{ path('app_logout')}}"><p>Logout</p></a></button>
+                    {% else %}
+                        <button type="button" class="deconnexion deconnexion_pc"><a href="{{ path('register')}}">Inscription</a></button>
+                        <button type="button" class="deconnexion deconnexion_pc"><a href="{{ path('app_login')}}" >Connexion</a></button>
+                    {% endif %}
+            
+            
+
+
+            <button id="menu-ouvrir" class="button">
+                <img src="{{ asset('images/svg/btn-menu.svg') }}" alt="Ouvrir le menu" />
+            </button>
+
+            <section id="navigation">
+                <nav>
+                    <figure class="avatar" id="avatar_fermer">
+                        <a>
+                          {% if app.user %}
+                            {% if app.user.photo %}
+                              <img src="{{ asset('images/jpg/photoCV.jpg') }}" alt="Votre avatar"/>
+                            {% else %}
+                              <img src="{{ asset('images/jpg/default.jpg') }}" alt="Votre avatar"/>
+                            {% endif %}
+                          {% else %}
+                            <img src="{{ asset('images/jpg/default.jpg') }}" alt="Votre avatar"/>
+                          {% endif %}
+                    </figure>
+                    <h1>Portfolio MMI</h1>
+                    <button id="menu-fermer" class="button">
+                        <img src="{{ asset('images/svg/btn-fermer.svg') }}" alt="Fermer le menu" />
+                    </button>
+
+                    <ul>
+                    {% if app.user %}
+                        <button type="button" class="deconnexion"><a href="{{ path('app_logout')}}"><p>Logout</p></a></button>
+                    {% else %}
+                        <button type="button" class="deconnexion"><a href="{{ path('register')}}">Inscription</a></button>
+                        <button type="button" class="deconnexion" id="deco_fermer"><a href="{{ path('app_login')}}">Connexion</a></button>
+                    {% endif %}
+                    </ul>
+                </nav>
+            </section>
+        </header>
+
+      <main>
+
+      {% if app.user and is_granted('ROLE_USER') and not is_granted('ROLE_ADMIN') and not is_granted('ROLE_PROF') and not is_granted('ROLE_ELEVE')%}
+      <div class="attente">
+              <p>Votre inscription est en train de se faire évaluer par l'Administrateur !  <br/>
+              {{ app.user.nom }} {{ app.user.prenom }} nous vous proposons de rester et lire cette page en attendant. </p>
+      </div>
+      {% elseif app.user %}
+        <div class="attente">
+          <p>Vous êtes encore connecté(e). Cliquez sur <a href="{{ path('app_logout')}}"><p>Logout</p></a> pour vous déconnecter.<br/>
+        </div>
+      {% endif %}
+      
+      <section>
+        <article id="accueil">
+          <li>
+            <a href="#iut" class="btn_style"><span>Découvrir l'IUT de Vélizy</span></a>
+            <a href="#butmmi" class="btn_style"><span>Qu'est ce que le BUT MMI ?</span></a>
+          </li>
+          <figure id="fond_accueil">
+            <img src="{{ asset('images/jpg/iut.jpg') }}" alt="IUT de Vélizy">
+          </figure>
+        </article>
+      </section>
+
+      <section id="iut">
+        <article>
+          <h2>Découvrir l'IUT de Vélizy</h2>
+          <h3>
+            Un pôle universitaire scientifique et technologique d'excellence 
+            ouvert aux partenariats et à la collaboration avec les entreprises.
+          </h3>
+          <p>
+            Le site de Vélizy accueillait déjà un Institut Universitaire de Technologie (IUT) offrant un ensemble de 
+            formations en informatique, génie électrique, réseaux et télécommunication et multimédia de niveau bac +2 et 
+            bac +3. La création du pôle de haute technologie universitaire permet l'arrivée sur place de nouvelles structures 
+            d'enseignements et un élargissement des cursus au niveau doctorat (bac +8).
+          </p>
+          <p>
+            Le pôle universitaire de technologique comporte différentes structures (composantes universitaires, laboratoire, 
+            services universitaires, associations et entreprises). Il est ouvert aux partenariats et à la 
+            collaboration avec les entreprises. 
+          </p>
+        </article>
+
+        <article id="butmmi">
+          <h2>Qu'est ce que le BUT MMI ?</h2>
+          <p>Le département des Métiers du Multimédia et de l'Internet forme des spécialistes du multimédia, 
+            polyvalents et pluridisciplinaires capables de concevoir, créer et développer des produits multimédia 
+            pour la communication des entreprises et des organisations. A la fois créatifs et compétents techniquement, 
+            les titulaires du BUT MMI sont des professionnels polyvalents dans les domaines des médias, du web et 
+            des nouvelles technologies.</p>
+        </article>
+
+        <article id="butcompetences">
+          <h2>Les compétences et AC</h2>
+          {% if not acs %}
+          <p>Aucune compétence n'a été entrée pour l'instant !</p>
+          {% else %}
+
+              {% set previous_competence = '' %}
+              {% for ac in acs %}
+                {% if ac.competence != previous_competence %}
+                  <h3 id="{{ac.competence}}">{{ac.competence}}</h3>
+                {% endif %}
+                <p>{{ac.label}} : {{ac.description}}.<br/>Niveau concerné : {{ac.niveau}}</p><br/>
+                {% set previous_competence = ac.competence %}
+              {% endfor %}
+            
+          {% endif %}
+          
+        </article>
+      </section>
+     </main>
+
+    <footer>
+      <figure>
+        <a href="https://www.iut-velizy-rambouillet.uvsq.fr" target="_blank"><img src="{{ asset('images/png/logo_mmi.png') }}" title="Logo MMI" alt="Logo MMI"></a>
+      </figure>
+      <li>
+        <ul><a href="{{ asset('pdf/mentions.pdf') }}" download>Télécharger les mentions légales</a></ul>
+        <ul><a href="#">Contact</a></ul>
+      </li>
+    </footer>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
+</body>
+</html>

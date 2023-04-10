@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <title>Portfolio MMI</title>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ asset('css/bulma.min.css?v=0.9.4') }}">
+	<link rel="stylesheet" type="text/css" media="screen" href="{{ asset('css/main.css') }}">
+
+  </head>
+
+  <body>
+    <header>
+        <figure class="avatar">
+            <a>
+                {% if app.user.photo %}
+                    <img src="{{ asset('images/jpg/photoCV.jpg') }}" alt="Votre avatar"/>
+                {% else %}
+                    <img src="{{ asset('images/jpg/default.jpg') }}" alt="Votre avatar"/>
+                {% endif %}
+            </a>
+        </figure>
+        <ul>
+          <li><a href="#" target="_self">Portfolio MMI</a></li>
+          {# <li id="proj"><a href="./professeur.htm" target="_self">Etudiants</a></li> #}
+        </ul>
+        <button type="button" class="deconnexion" id="deconnexion_pc"><a href="{{ path('app_logout')}}"><p>Logout</p></a></button>
+        <button id="menu-ouvrir" class="button">
+            <img src="{{ asset('images/svg/btn-menu.svg') }}" alt="Ouvrir le menu" />
+        </button>
+        <section id="navigation">
+            <nav>
+                <figure class="avatar" id="avatar_fermer">
+                    <a>
+                        {% if app.user.photo %}
+                            <img src="{{ asset('images/jpg/photoCV.jpg') }}" alt="Votre avatar"/>
+                        {% else %}
+                            <img src="{{ asset('images/jpg/default.jpg') }}" alt="Votre avatar"/>
+                        {% endif %}
+                    </a>
+                </figure>
+                <h1>Portfolio MMI</h1>
+                <button id="menu-fermer" class="button">
+                    <img src="{{ asset('images/svg/btn-fermer.svg') }}" alt="Fermer le menu" />
+                </button>
+                <ul>
+                    <li><button type="button" class="deconnexion" id="deconnexion_pc"><a href="{{ path('app_logout')}}"><p>Logout</p></a></button></li>
+                </ul>
+            </nav>
+        </section>
+    </header>
+    <main>
+
+        {% if is_granted('ROLE_ADMIN') %}
+        <div class="attente">
+            <p>Vous voyez cette page en tant qu'admin !</p>
+            <a href="{{ path('admin') }}" class="btn btn-secondary">Retour à la page admin</a>
+        </div>
+        {% endif %}
+    
+
+      <section id="portfolio">
+      <div class="bienvenue">
+      <h2>Bonjour Monsieur/Madame {{ app.user.nom }}, et bienvenue sur les portfolios de vos élèves.</h2><br/>
+      </div>
+        {# <p>
+            <label for="filter">Trouver un étudiant :</label>
+            <input type="text" id="filter" ng-model="valeur">
+            
+        </p> #}
+        {# <article ng-repeat="etudiant in etudiants | filter:valeur"> #}
+        {% for etudiant in etudiants %}
+ 
+        <article>
+        {#  ng-controller="monController" #}
+            <li>
+                <figure class="avatar">
+                    <a>
+                        {% if app.user.photo %}
+                            <img src="{{ asset('images/jpg/photoCV.jpg') }}" alt="Votre avatar"/>
+                        {% else %}
+                            <img src="{{ asset('images/jpg/default.jpg') }}" alt="Votre avatar"/>
+                        {% endif %}
+                    </a>
+                </figure>
+       
+
+                {# {{ dump(etudiants) }}
+                {{etudiants[0].nom}} #}
+                <h3>Nom : {{etudiant.nom}}</h3>
+                <h3>Prenom : {{etudiant.prenom}}</h3><br/>
+                
+ 
+            </li>
+            <div class="interieur-projet">
+            
+               {% if etudiant.projets is empty %}
+                {# <div ng-show="show"> #}
+                    <p>Cet etudiant n'a pas de projet</p>
+                {# </div> #}
+                {% else %}
+                {# <div ng-show="show"> #}
+                    {% for projet in etudiant.projets %}
+                        <p>Titre du projet : {{projet.nom}}<br/></p>
+                        <p>Description : {{projet.description}}<br/></p>
+                        {% if projet.image %}
+                            <div class="img-wrapper">
+                                <img src="{{ asset('./images/projets/'~projet.image) }}" >
+                            </div>
+                        {% endif %}
+                        {% if projet.commentaire %}
+                            <p>Commentaire : {{projet.commentaire}}</p><br/><br/>
+                        {% else %}
+                        {# <p>Commentaire : Il n'y a pas encore de commentaire</p> #}
+                             {# {{ form_start(formComment, {'action': path('add_comment', {'id': projet.id}), 'method': 'POST', 'projet_id': projet.id}) }}
+                            {{ form_widget(formComment) }}
+                            <button type="submit">Ajouter</button><br/><br/>
+                            {{ form_end(formComment) }} #}
+
+                            <form class="form-comment" action="{{ path('add_comment', {'id': projet.id}) }}" method="post">
+                                <label for="commentaire">Commentaire:</label>
+                                <textarea id="commentaire" name="commentaire" placeholder="Saisir un commentaire"></textarea> 
+                                <input type="submit" value="Valider">
+                            </form>
+                            <br/><br/>
+                         {% endif %}
+                    {% endfor %}
+                {# </div> #}
+                {% endif %}
+                
+            </div>
+            <li>
+                {# <a class="btn_style" ><span class="centre">Consulter les projets</span></a> #}
+                {# ng-click="showDiv()" #}
+            </li>
+        </article>
+
+        {% endfor %}
+
+        
+      </section>
+    </main>
+    <footer>
+      <figure>
+        <a href="https://www.iut-velizy-rambouillet.uvsq.fr" target="_blank"><img src="{{ asset('images/png/logo_mmi.png') }}" title="Logo MMI" alt="Logo MMI"></a>
+      </figure>
+      <li>
+        <ul><a href="{{ asset('pdf/mentions.pdf') }}" download>Télécharger les mentions légales</a></ul>
+        <ul><a href="#">Contact</a></ul>
+      </li>
+    </footer>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
+</body>

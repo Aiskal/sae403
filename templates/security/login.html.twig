@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <title>Portfolio MMI</title>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ asset('css/bulma.min.css?v=0.9.4') }}">
+	<link rel="stylesheet" type="text/css" media="screen" href="{{ asset('css/main.css') }}">
+
+  </head>
+
+<body>
+
+<main>
+    {% if error %}
+        <div class="attente error">Email ou mot de passe incorrect</div>
+        {# {{ error.messageKey|trans(error.messageData, 'security') }} #}
+    {% endif %}
+
+    {% if app.user %}
+    <script>
+        window.location.href = '{{ path('app_logout') }}';
+    </script>
+    {% endif %}
+
+<form method="post" class="myform">
+
+    <h1 class="h3 mb-3 font-weight-normal">Connectez-vous</h1>
+    <label for="inputEmail">Email</label>
+    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+    <label for="inputPassword">Password</label>
+    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+
+    <input type="hidden" name="_csrf_token"
+           value="{{ csrf_token('authenticate') }}"
+    >
+
+    <button class="btn btn-lg btn-primary" type="submit">
+        Se connecter
+    </button>
+
+    <div class="liens-form">
+        <a href="{{ path('index') }}">Retour</a> <a href="{{ path('register') }}">Je n'ai pas de compte</a>
+    </div>
+</form>
+
+    
+
+    
+        {# <form ng-submit="submitForm(form.$valid)" novalidate class="myform" method="post">
+            <label for="inputEmail">Email</label>
+            <input ng-model='email' type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus placeholder="Email">
+            <label for="inputPassword">Password</label>
+            <input ng-model='password' type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required placeholder="Mot de passe">
+
+            <button class="btn btn-lg btn-primary" type="submit" ng-disabled="form.$invalid">M'inscrire</button>
+            <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+        </form> #}
+    </main>
+
+    <footer>
+      <figure>
+        <a href="https://www.iut-velizy-rambouillet.uvsq.fr" target="_blank"><img src="{{ asset('images/png/logo_mmi.png') }}" title="Logo MMI" alt="Logo MMI"></a>
+      </figure>
+      <li>
+        <ul><a href="{{ asset('pdf/mentions.pdf') }}" download>Télécharger les mentions légales</a></ul>
+        <ul><a href="#">Contact</a></ul>
+      </li>
+    </footer>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
+</body>
+
+</html>

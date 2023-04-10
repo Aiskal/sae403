@@ -1,0 +1,16 @@
+body > footer {
+    margin-top: 2rem;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: var(--noir);
+}
+
+footer figure {
+    width: 15vw;
+    height: 100%;
+}
+

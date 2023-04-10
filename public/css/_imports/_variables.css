@@ -1,0 +1,16 @@
+/*
+
+Les variables ont un scope.
+En les définissant dans :root, elles sont accessibles depuis n'importe quel sélecteur : de cette manière, on en fait des variables globales.
+
+*/
+
+:root {
+	--noir: #191817;
+	--blanc: #faf9f5;
+
+	--gouttiere: 2.5rem;
+
+	--mob-header-h: 3.75rem;
+	--desk-header-h: 7.5rem;
+} /* :root { */

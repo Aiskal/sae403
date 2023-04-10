@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    
+    <title>Portfolio MMI</title>
+
+    <link rel="stylesheet" type="text/css" media="screen" href="{{ asset('css/bulma.min.css?v=0.9.4') }}">
+	<link rel="stylesheet" type="text/css" media="screen" href="{{ asset('css/main.css') }}">
+
+  </head>
+
+<body >
+    <header>
+        <figure class="avatar">
+            <a>
+                {% if app.user.photo %}
+                    <img src="{{ asset('images/jpg/photoCV.jpg') }}" alt="Votre avatar"/>
+                {% else %}
+                    <img src="{{ asset('images/jpg/default.jpg') }}" alt="Votre avatar"/>
+                {% endif %}
+            </a>
+        </figure>
+        <ul>
+          <li><a href="#" target="_self">Portfolio MMI</a></li>
+        </ul>
+        <button type="button" class="deconnexion" id="deconnexion_pc"><a href="{{ path('app_logout')}}"><p>Logout</p></a></button>
+        <button id="menu-ouvrir" class="button">
+            <img src="{{ asset('images/svg/btn-menu.svg')}}" alt="Ouvrir le menu" />
+        </button>
+        <section id="navigation">
+            <nav>
+                <figure class="avatar" id="avatar_fermer">
+                    <a>
+                        {% if app.user.photo %}
+                            <img src="{{ asset('images/jpg/photoCV.jpg') }}" alt="Votre avatar"/>
+                        {% else %}
+                            <img src="{{ asset('images/jpg/default.jpg') }}" alt="Votre avatar"/>
+                        {% endif %}
+                    </a>
+                </figure>
+                <h1>Portfolio MMI</h1>
+                <button id="menu-fermer" class="button">
+                    <img src="{{ asset('images/svg/btn-fermer.svg')}}" alt="Fermer le menu" />
+                </button>
+                <ul>
+                    <button type="button" class="deconnexion" id="deconnexion_pc"><a href="{{ path('app_logout')}}"><p>Logout</p></a></button>
+                </ul>
+            </nav>
+        </section>
+    </header>
+
+    <main>
+            <div class="attente">
+            <a href="{{ path('professeur') }}" class="btn btn-secondary">Voir la vue professeur</a><br/>
+            <p> ou alors</p>
+            <a href="{{ path('profile') }}" class="btn btn-secondary">Voir la vue élève</a>
+        </div>
+
+        {% if app.request.pathInfo ends with '/admin/admins' %}
+        {# {% if app.request.uri == 'http://localhost/sae403/public/index.php/admin/admins' %} #}
+            <div class="admin-choix">
+            <a href="{{ path('adminEleves') }}" class="btn btn-secondary btn_style"><span>Liste des élèves</span></a>
+            <a href="{{ path('adminProfs') }}" class="btn btn-secondary btn_style"><span>Liste des professeurs</span></a>
+            <a href="{{ path('admin') }}" class="btn btn-secondary btn_style"><span>Retour à ma page</span></a>
+            </div>
+
+            <section id="portfolio"> 
+            {% if admins %}
+                    
+            <ul class="all-class-user"><h3>Administrateurs</h3>
+                {% for admin in admins %}
+                <article class="article-admin">
+                    <li><h3>Nom : {{admin.nom}} </h3></li>
+                    <li><h3>Prénom : {{admin.prenom}} </h3></li>
+                    <li><h3>Role : admin </h3></li>
+                    <li>
+                        <figure class="avatar">
+                            {% if admin.photo %}
+                                <img src="{{ asset('images/jpg/photoCV.jpg') }}" alt="Votre avatar"/>
+                            {% else %}
+                                <img src="{{ asset('images/jpg/default.jpg')}}" alt="Votre avatar"/>
+                            {% endif %}
+                        </figure>
+                    </li>
+                    </article>
+                {% endfor %}
+            </ul>
+
+         {% else %}
+            <p>Aucun(e) admin(e) enregistré(e)</p>
+        {% endif %}
+        </section>
+
+        {% elseif app.request.pathInfo ends with '/admin/professeurs' %}
+        {# {% elseif app.request.uri == 'http://localhost/sae403/public/index.php/admin/professeurs' %} #}
+        <div class="admin-choix">
+            <a href="{{ path('adminEleves') }}" class="btn btn-secondary btn_style"><span>Liste des élèves</span></a>
+            <a href="{{ path('adminAdmins') }}" class="btn btn-secondary btn_style"><span>Liste des admins</span></a>
+            <a href="{{ path('admin') }}" class="btn btn-secondary btn_style"><span>Retour à ma page</span></a>
+        </div>
+
+            <section id="portfolio"> 
+            {% if professeurs %}
+                    
+            <ul class="all-class-user"><h3>Professeurs</h3>
+                {% for professeur in professeurs %}
+                <article class="article-admin">
+                    <li><h3>Nom : {{professeur.nom}} </h3></li>
+                    <li><h3>Prénom : {{professeur.prenom}} </h3></li>
+                    <li><h3>Role : professeur </h3></li>
+                    <li>
+                        <figure class="avatar">
+                            {% if professeur.photo %}
+                                <img src="{{ asset('images/jpg/photoCV.jpg') }}" alt="Votre avatar"/>
+                            {% else %}
+                                <img src="{{ asset('images/jpg/default.jpg')}}" alt="Votre avatar"/>
+                            {% endif %}
+                        </figure>
+                    </li>
+                    </article>
+                {% endfor %}
+            </ul>
+
+         {% else %}
+            <p>Aucun(e) professeur(e) enregistré(e)</p>
+        {% endif %}
+        </section>
+
+        {% elseif app.request.pathInfo ends with '/admin/eleves' %}
+        {# {% elseif app.request.uri == 'http://localhost/sae403/public/index.php/admin/eleves' %} #}
+        <div class="admin-choix">
+            <a href="{{ path('adminProfs') }}" class="btn btn-secondary btn_style"><span>Liste des professeurs</span></a>
+            <a href="{{ path('adminAdmins') }}" class="btn btn-secondary btn_style"><span>Liste des admins</span></a>
+            <a href="{{ path('admin') }}" class="btn btn-secondary btn_style"><span>Retour à ma page</span></a>
+        </div>
+
+            <section id="portfolio"> 
+            {% if eleves %}
+        
+        {# ng-repeat="personne in personnes | filter:{ name: nom, role: roole }" #}
+                    
+            <ul class="all-class-user"><h3>Elèves</h3>
+                {% for eleve in eleves %}
+                <article class="article-admin">
+                    <li><h3>Nom : {{eleve.nom}} </h3></li>
+                    <li><h3>Prénom : {{eleve.prenom}} </h3></li>
+                    <li><h3>Role : eleve </h3></li>
+                    <li><h3>Nombre de projet(s) : {{eleve.projets}} </h3></li>
+                    <li>
+                        <figure class="avatar">
+                            {% if eleve.photo %}
+                                <img src="{{ asset('images/jpg/photoCV.jpg') }}" alt="Votre avatar"/>
+                            {% else %}
+                                <img src="{{ asset('images/jpg/default.jpg')}}" alt="Votre avatar"/>
+                            {% endif %}
+                        </figure>
+                    </li>
+                    {# <li>
+                        <a class="btn_style"><span class="centre">Modifier le rôle</span></a>
+                    </li> #}
+                    </article>
+                {% endfor %}
+            </ul>
+
+         {% else %}
+            <p>Aucun(e) élève enregistré(e)</p>
+        {% endif %}
+        </section>
+
+        {% elseif app.request.pathInfo ends with '/admin' %}
+        {# {% elseif app.request.uri == 'http://localhost/sae403/public/index.php/admin' %} #}
+        <div class="admin-choix">
+            <a href="{{ path('adminEleves') }}" class="btn btn-secondary btn_style"><span>Liste des élèves</span></a>
+            <a href="{{ path('adminProfs') }}" class="btn btn-secondary btn_style"><span>Liste des professeurs</span></a>
+            <a href="{{ path('adminAdmins') }}" class="btn btn-secondary btn_style"><span>Liste des admins</span></a>
+            </div>
+
+                <div class="form-ac ajoutForm">
+                    <h3>Ajouter une AC</h3>
+
+                    {{ form_start(formAC) }}
+                        {{ form_row(formAC.label, {'label': false}) }}
+                        {# {{ form_row(formAC.competence, {'label': false}) }} #}
+                            {{ form_widget(formAC.competence, {'attr': {'class': 'form-select'}}) }}
+                            {{ form_errors(formAC.competence) }}
+                        {{ form_row(formAC.description, {'label': false}) }}
+                        {# {{ form_row(formAC.niveau, {'label': false}) }} #}
+                            {{ form_widget(formAC.niveau, {'attr': {'class': 'form-select'}}) }}
+                            {{ form_errors(formAC.niveau) }}
+
+                    <button type="submit" class="btn">Valider</button>
+                    {{ form_end(formAC) }}
+                </div>
+
+                      <section id="portfolio">     
+
+                {% if users %}
+                            
+                    <ul class="all-class-user"><h3>Utilisateurs en attente</h3>
+                        {% for user in users %}
+                        <article class="article-admin">
+                            <li><h3>Nom : {{user.nom}} </h3></li>
+                            <li><h3>Prénom : {{user.prenom}} </h3></li>
+                            <li><h3>Email : {{user.email}}</h3></li>
+                            </article>
+                        {% endfor %}
+                    </ul>
+
+                {% else %}
+                    <p>Aucune demande en attente</p>
+                {% endif %}
+
+            </section>
+        {% endif %}
+
+        
+
+
+
+
+    </main>
+
+    <footer>
+      <figure>
+        <a href="https://www.iut-velizy-rambouillet.uvsq.fr" target="_blank"><img src="{{ asset('images/png/logo_mmi.png') }}" title="Logo MMI" alt="Logo MMI"></a>
+      </figure>
+      <li>
+        <ul><a href="{{ asset('pdf/mentions.pdf') }}" download>Télécharger les mentions légales</a></ul>
+        <ul><a href="#">Contact</a></ul>
+      </li>
+    </footer>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
+</body>

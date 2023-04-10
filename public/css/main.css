@@ -1,0 +1,329 @@
+/* ---------- INIT */
+
+@import url('./_imports/_webfonts.css');
+@import url('./_imports/_variables.css');
+
+
+/* ---------- PAGES - structure */
+
+@import url('./_imports/_commun.css');
+@import url('./_imports/_header.css');
+@import url('./_imports/_footer.css');
+
+
+html,body{
+    margin: 0;
+    scroll-behavior: smooth;
+}
+main{
+    margin-left: auto;
+    margin-right: auto;
+    width: 100vw;
+}
+
+
+/* ---------------------------------------------------------------------- Accueil */
+#p {
+    margin: 0px;
+}
+#accueil {
+    width: 100vw;
+    height: 100%;
+    position: relative;
+}
+
+#fond_accueil {
+    position: absolute;
+    max-width: 100%;
+    max-height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0;
+    overflow: hidden;
+}
+
+#fond_accueil > img {
+    max-height: 100%;
+}
+
+#accueil > li {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    counter-increment: itemcounter;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    pointer-events: none;
+    list-style: none;
+}
+
+#accueil a:hover, #accueil a:visited, #accueil a:active {
+    color: inherit;
+}
+
+/* ---------- boutons */
+
+.btn_style {
+    pointer-events: auto;
+    cursor: pointer;
+    border: none;
+    padding: 1rem;
+    margin: 0.5rem 0;
+    position: relative;
+    overflow: hidden;
+    color: var(--blanc);
+    background: var(--blanc);
+    border: 1px solid var(--noir);
+}
+    
+.btn_style::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    content: '';
+	background: var(--noir);
+	width: 120%;
+	left: -10%;
+	transform: skew(30deg);
+	transition: transform 0.4s cubic-bezier(0.3, 1, 0.8, 1);
+    }
+
+.btn_style:hover::before {
+    transform: translate3d(100%,0,0);
+}
+
+.btn_style span {
+    color: var(--blanc);
+	position: relative;
+	mix-blend-mode: difference;
+}
+
+/* ---------------------------------------------------------------------- IUT */
+#iut {
+    padding: 30px;
+}
+
+#iut article{
+    padding: 40px;
+}
+
+/* #iut > *, #portfolio h3 {
+    margin: 0.5rem 1rem 0 1rem;
+} */
+
+#iut, #portfolio {
+    color: var(--noir);
+}
+
+
+/* ---------------------------------------------------------------------- Portfolios */
+
+.bienvenue {
+    /* margin: 20px; */
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 30px;
+    text-align: center;
+}
+
+.ajoutForm {
+    background-color: var(--noir);
+    color: var(--blanc);
+    text-align: left;
+    padding: 50px;
+}
+
+.ajoutForm h3{
+    text-align: center;
+    margin: 0;
+}
+
+.ajoutForm form{
+    width: fit-content;
+    max-width: 70vw;
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+}
+.ajoutForm form>div{
+    display: flex;
+    gap: 10px;
+    align-items: baseline;
+    width: -webkit-fill-available;
+    justify-content: center;
+}
+
+.ajoutForm form div #ajout_projet_ac_form select{
+    max-width: 70vw;
+}
+
+.ajoutForm form div #ajout_projet_ac_form option{
+    max-width: 70vw;
+}
+
+.ajoutForm form div input, .ajoutForm form div textarea{
+    width: 100%;
+}
+
+#portfolio > article, .article-admin {
+    color: var(--blanc);
+    background: var(--noir);
+    /* margin: 1rem 0 1rem 1rem; */
+    overflow: hidden;
+    padding-right: 1rem;
+    padding: 40px;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+#portfolio article .img-wrapper img{
+    max-width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    border: 3px solid var(--blanc)
+}
+
+/* #portfolio > img {
+    padding: 1rem 1rem 1rem 0;
+} */
+
+#portfolio li {
+    display: flex;
+    
+    margin-left: 0;
+    gap: 30px;
+
+}
+
+#portfolio span {
+    margin: 0;
+}
+
+.all-class-user{
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+    background-color: black;
+    padding: 40px 0px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.all-class-user h3{
+    color: var(--blanc);
+    text-align: center;
+}
+
+.article-admin li{
+    margin: 0px;
+}
+
+.form-ac{
+    margin-top: 50px;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
+}
+/* 
+.img-wrapper{
+    display: flex;
+    justify-content: center;
+} */
+
+.interieur-projet{
+    padding: 20px;
+}
+
+/* ---------------------------------------------------------------------- Photo de profil */
+
+#profil1, #profil2 {
+    margin: 0;
+    padding: 0;
+    translate: -27% -1%;
+}
+
+/* ---------------------------------------------------------------------- Formulaire */
+
+.myform {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.myform form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.myform * {
+    margin: 0.5rem 0;
+}
+
+.myform input.ng-invalid.ng-dirty {
+    background-color: #FA787E;
+}
+
+.myform input.ng-valid.ng-dirty {
+    background-color: #78FA89;
+}
+
+.liens-form{
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    align-items: center;
+}
+
+.liens-form a{
+    margin: 0px;
+}
+
+/* ---------------------------------------------------------------------- Accueil */
+
+.attente {
+    padding: 20px;
+    background-color:#78FA89;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100vw;
+}
+
+.admin-choix {
+    display: flex;
+    width: 100vw;
+    flex-direction: row;
+    gap: 30px;
+    justify-content: center;
+    margin-top: 20px;
+    text-align: center;
+}
+
+.error{
+    background-color:#FA787E;
+}
+
+.form-comment{
+    display: flex;
+    gap: 10px;
+}
+
+.form-comment textarea{
+    width: 60%;
+}

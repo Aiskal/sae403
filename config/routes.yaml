@@ -1,0 +1,80 @@
+index:
+    path: /index
+    controller: App\Controller\SaeController::index
+
+home:
+    path: /home
+    controller: App\Controller\SaeController::home
+
+error:
+    path: /error
+    controller: App\Controller\SaeController::error
+
+admin:
+    path: /admin
+    controller: App\Controller\SaeController::admin
+
+# adminAC:
+#     path: /admin/AC
+#     controller: App\Controller\SaeController::admin
+
+#Avant /profile
+delete_project:
+    path: '/profile/{id}'
+    methods: [DELETE]
+    controller: 'App\Controller\ProjetController::delete'
+
+
+
+
+adminEleves:
+    path: /admin/eleves
+    controller: App\Controller\SaeController::admin
+
+adminProfs:
+    path: /admin/professeurs
+    controller: App\Controller\SaeController::admin
+
+adminAdmins:
+    path: /admin/admins
+    controller: App\Controller\SaeController::admin
+
+
+professeur:
+    path: /professeur
+    controller: App\Controller\SaeController::professeur
+
+profile:
+    path: /profile
+    controller: App\Controller\SaeController::profile
+
+
+
+add_comment:
+    path: /projet/{id}
+    controller: App\Controller\CommentController::addComment
+
+update_comment:
+    path: /projet/{id}
+    controller: App\Controller\CommentController::UpdateComment
+
+
+
+# delete_project:
+#     path: '/profile/{id}'
+#     methods: ['DELETE']
+#     controller: 'App\Controller\ProjetController::delete'
+
+
+
+app_login:
+    path: /login
+    controller: App\Controller\SecurityController::login
+
+app_logout:
+    path: /logout
+    controller: App\Controller\SecurityController::logout
+
+register:
+    path: /register
+    controller: App\Controller\RegistrationController::register
